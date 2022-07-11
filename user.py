@@ -1,6 +1,6 @@
 import tools
 import csv
-
+import datetime
 
 def inscription():
     name = None
@@ -32,10 +32,13 @@ def inscription():
         annee_naissance = input("Veuillez entrer votre année de naissance :")
         try:
             annee_naissance = int(annee_naissance)
-            if 1930 <= annee_naissance <= 2020:
+            if not (1930 <= annee_naissance <= 2020):
                 annee_naissance = None
         except ValueError:
             annee_naissance = None
+
+    age = datetime.datetime.now().year - annee_naissance
+    print(age)
 
     country = None
     liste_des_pays = []
