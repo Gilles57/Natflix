@@ -20,7 +20,7 @@ def main():
 
         choice = input("\nVeuillez entrer votre choix : ")
 
-        if choice == '1':
+        if choice == "1":
             user.inscription()
             break
         elif choice == "2":
