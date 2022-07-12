@@ -77,7 +77,7 @@ def inscription():
             print("Votre mot de passe doit avoir au moins 6 caractères et pas d'esaces")
             password = None
 
-    compte = {
+    user = {
         "name": name,
         "email": email,
         "annee_naissance": annee_naissance,
@@ -87,10 +87,10 @@ def inscription():
     }
     # TODO hasher le password
 
-    print(compte)
+    print(user)
 
     with open("comptes.txt", "a") as f:
-        f.write(compte["email"] + "\n")
+        f.write(user["email"] + "\n")
 
 
 # print(f"{name=} {email=} {annee_naissance=} {country=} {sub_type=} {password=}")
