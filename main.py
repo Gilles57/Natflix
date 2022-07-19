@@ -1,4 +1,6 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import sys
+
 import user
 import tools
 
@@ -20,17 +22,20 @@ def main():
 
         choice = input("\nVeuillez entrer votre choix : ")
 
-        if choice == "1":
-            user.inscription()
-            break
-        elif choice == "2":
-            user.authentification()
-            break
-        elif choice == "3":
-            print("Bye bye !")
-            break
-        else:
-            print("Votre choix n'est pas dans la liste, veuillez réessayer...")
+        match choice:
+            case "1":
+                client = user.inscription()
+                tools.clear_screen()
+                # print(client)
+
+            case "2":
+                validation = user.authentification()
+                # print(validation)
+
+            case "3":
+                sys.exit()
+            case _:
+                print("Votre choix n'est pas dans la liste, veuillez réessayer...")
 
 
 if __name__ == "__main__":

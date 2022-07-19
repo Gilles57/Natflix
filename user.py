@@ -87,14 +87,49 @@ def inscription():
     }
     # TODO hasher le password
 
-    print(user)
-
     with open("comptes.txt", "a") as f:
-        f.write(user["email"] + "\n")
+        f.write(f'{name},{email},{annee_naissance},{country},{sub_type},{password}\n')
 
-
-# print(f"{name=} {email=} {annee_naissance=} {country=} {sub_type=} {password=}")
+    return user
 
 
 def authentification():
-    print("authentification !")
+    comptes = []
+    with open("comptes.txt", "r") as f:
+        for line in f:
+            client = {}
+            line = line[:-1].split(",")  # je supprime le \n avant de séparer les éléments
+            client["nom"] = line[0]
+            client["email"] = line[1]
+            client["annee_naissance"] = line[2]
+            client["pays"] = line[3]
+            client["sub_type"] = line[4]
+            client["password"] = line[5]
+            comptes.append(client)
+
+    nb_essai = 3
+    validation = False
+
+    while nb_essai > 0 and not validation:
+        email = input("Veuillez entrer votre email :")
+        email = email.lower().strip()
+
+        password = input("Veuillez entrer votre password :")
+        password = password.strip()
+
+        # email = "tot@gmail.com"
+        # password = "qsdqsqa"
+
+        for c in comptes:
+            if c['email'] == email and c['password'] == password:
+                validation = True;
+                break
+
+        if not validation:
+            tools.clear_screen()
+            print('Vos identifiants sont incorrects, réessayez :')
+            nb_essai = nb_essai - 1
+            if nb_essai == 1:
+                print('Attention ! Dernier essai.')
+
+    return validation
