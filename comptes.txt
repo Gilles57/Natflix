@@ -1,3 +1,0 @@
-Toto,toto@gmail.com,2000,Suisse,1,qsdqsd
-Tata,tata@gmail.com,2020,Canada,1,wxcwxc
-Titi,titi@gmail.com,2010,France,2,poipoi

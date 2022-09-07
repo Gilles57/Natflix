@@ -1,42 +1,29 @@
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 import sys
 
-import user
+import messages
+import menus
+import media
 import tools
 
 
 def main():
-    tools.clear_screen()
-
     while True:
-        LARGEUR_TITRE = 80
-        print("\n")
-        print("#" * LARGEUR_TITRE)
-        print(f"###{'Bienvenue dans Natflix':^{LARGEUR_TITRE - 6}}###")
-        print("#" * LARGEUR_TITRE)
+        messages.titre_welcome()
+        client = menus.welcome()
+        print(f"{client=}")
+        print(f"{tools.age(int(client['BIRTH']))}")
 
-        print("\nMenu d'accueil")
-        print("1. S'inscrire")
-        print("2. S'authentifier")
-        print("3. Quitter")
+        all_medias = tools.load_datas('natflix.csv', "|")
+        all_medias = media.age(all_medias) #remplace le classement par l'âge limite
+        available_medias = media.find_medias(all_medias, client)
 
-        choice = input("\nVeuillez entrer votre choix : ")
+        messages.titre_media(client['NAME'], len(available_medias))
 
-        match choice:
-            case "1":
-                client = user.inscription()
-                tools.clear_screen()
-                # print(client)
-
-            case "2":
-                validation = user.authentification()
-                # print(validation)
-
-            case "3":
-                sys.exit()
-            case _:
-                print("Votre choix n'est pas dans la liste, veuillez réessayer...")
-
+        media.show_all(available_medias)
+        # films = menus.library()
+        # print(films)
+        sys.exit()
 
 if __name__ == "__main__":
     main()
