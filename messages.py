@@ -1,3 +1,4 @@
+import media
 import tools
 
 
@@ -15,9 +16,21 @@ def titre_media(user_name, number_of_medias):
     tools.clear_screen()
 
     LARGEUR_TITRE = 80
-    print("\n")
+    print("")
     print("#" * LARGEUR_TITRE)
-    print(f"###{f'Salut {user_name} ! Tu as accès à {number_of_medias} films et séries télés.':^{LARGEUR_TITRE - 6}}###")
+    print(
+        f"###{f'Salut {user_name} ! Tu as accès à {number_of_medias} films et séries télés.':^{LARGEUR_TITRE - 6}}###")
     print("#" * LARGEUR_TITRE)
-    print("\n")
-    input("Tape une touche pour afficher la liste.")
+    print("")
+
+
+def titre_search(user_name, number_of_medias):
+    tools.clear_screen()
+
+    LARGEUR_TITRE = 80
+    print("")
+    print("*" * LARGEUR_TITRE)
+    print(
+        f"###{f'{user_name},  il y a {number_of_medias} résultats pour ta recherche.':^{LARGEUR_TITRE - 6}}###")
+    print("*" * LARGEUR_TITRE)
+    print("")

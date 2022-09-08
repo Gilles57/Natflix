@@ -1,3 +1,5 @@
+import sys
+
 import tools
 import csv
 import datetime
@@ -7,6 +9,8 @@ def inscription():
     MIN_AGE = 6
     MAX_AGE = 120
     current_year = datetime.datetime.now().year
+
+    emails = tools.load_datas('comptes.csv', ',')
     name = None
     while name is None:
         name = input("Veuillez entrer votre nom : ")
@@ -25,9 +29,8 @@ def inscription():
             email = None
             print("Adresse invalide")
         else:
-            with open("comptes.csv", "r") as f:
-                for ligne in f:
-                    if (email + "\n") == ligne:
+                for mail in emails:
+                    if email == mail['EMAIL']:
                         email = None
                         print("Adresse déjà enregistrée")
                         break
@@ -45,7 +48,7 @@ def inscription():
             birth_year = None
 
     country = None
-    liste_des_pays = tools.load_datas('paysmonde.csv')
+    liste_des_pays = tools.load_datas('paysmonde.csv', ',')
     liste_des_pays = [(item['NOM'].lower()) for item in liste_des_pays]
 
     while country is None:
@@ -57,10 +60,10 @@ def inscription():
     sub_type = None
     while sub_type is None:
         sub_type = input(
-            "Veuillez entrer votre type d'abonnement ([1] Régional - [2] International) : "
+            "Veuillez entrer votre type d'abonnement ([R] Régional - [I] International) : "
         )
         if sub_type != "1" and sub_type != "2":
-            print("Vous ne pouvez saisir que '1' ou '2'")
+            print("Vous ne pouvez saisir que 'R' ou 'I'")
             sub_type = None
 
     password = None
@@ -75,12 +78,12 @@ def inscription():
 
     password = tools.hash_password(password)
     user = {
-        "name": name,
-        "email": email,
-        "birth_year": birth_year,
-        "country": country,
-        "sub_type": sub_type,
-        "password": password,
+        "NAME": name,
+        "EMAIL": email,
+        "BIRTH": birth_year,
+        "COUNTRY": country,
+        "ABT": sub_type,
+        "PASSWORD": password,
     }
 
     with open("comptes.csv", "a") as f:
@@ -103,8 +106,9 @@ def authentification():
         # password = input("Veuillez entrer votre password :")
         # password = password.strip()
 
-        email = "tata@gmail.com"
-        password = "aaaaaa"
+        email = "j.balle@gmail.com" # utilisé pendant les tests à la place des lignes 103 à 107
+        password = "aaaaaa"         # utilisé pendant les tests à la place des lignes 103 à 107
+                                    # TODO à rétablir avant déploiement
 
         for c in comptes:
             if c['EMAIL'].lower() == email and tools.verify_password(c['PASSWORD'], password):
@@ -117,10 +121,13 @@ def authentification():
             nb_of_tries = nb_of_tries - 1
             if nb_of_tries == 1:
                 print('Attention ! Dernier essai.')
+            if nb_of_tries == 0:
+                c = None #TODO tester 3 erreurs
+    tools.clear_screen()
 
     return c
 
 
 def ending():
     print("Merci d'avoir utilisé nos services !")
-    return None
+    sys.exit()

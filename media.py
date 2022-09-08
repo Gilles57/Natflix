@@ -1,9 +1,10 @@
 import sys
 
+import messages
 import tools
 
 
-def age(medias):
+def age_limite(medias):
     for media in medias:
         match media['classement']:
             case "TV-Y":
@@ -47,49 +48,112 @@ def age(medias):
     return medias
 
 
-def show_all(medias):
+def show_liste(medias):
+    print("")
     for media in medias:
-        print(f"{media['show_id']} : {media['titre']} ({media['pays']}) - (>= {media['classement']} ans)")
+        if media['classement'] == 0:
+            limite = "Tous publics"
+        else:
+            limite = f"CLASSIFICATION : >= {media['classement']} ans"
+        print(f" : {media['show_id']} : {media['titre']} ({media['pays']}) - {limite}")
 
 
-def find_medias(medias, client):
-    age = tools.age(int(client['BIRTH']))
-    if client['ABT'] == '2':
+def select_one(available_medias):
+    ref = None
+    while ref is None:
+        ref = input("\nTape une référence (sXXXX) pour accéder à la fiche détaillée : ")
+        for m in available_medias:
+            if ref == m.get('show_id'):
+                show_one(available_medias, ref)
+        ref = None
+        print("Référence inexistante !")
+
+
+def show_one(medias, choice_id):
+    media = [item for item in medias if (item['show_id'] == choice_id)][0]
+    title = media['titre']
+    len_title = max(len(media['titre']), 30)
+
+    tools.clear_screen()
+    print("\n")
+    print("#" * len_title)
+    print(f"{title:^{len_title}}")
+    print("#" * len_title)
+    print(f"PAYS : {media['pays']}")
+    if media['classement'] == 0:
+        print("CLASSIFICATION : Tous publics")
+    else:
+        print(f"CLASSIFICATION : >= {media['classement']} ans")
+    print(f"DESCRIPTION : {media['description']}")
+    print(f"LANGUE : {media['langue']}")
+    print(f"POPULARITÉ : {media['popularite']}")
+    print(f"NOTE : {media['note']}")
+    print(f"TYPE : {media['type']}")
+    print(f"RÉALISATEURS : {media['directeurs']}")
+    print(f"ACTEURS : {media['acteurs']}")
+    print(f"PAYS : {media['pays']}")
+    print(f"DATE DE L'AJOUT : {media['date_ajout']}")
+    print(f"DATE DE SORTIE : {media['annee_sortie']}")
+    print(f"DURÉE : {media['duree']}")
+    print(f"CATÉGORIES : {media['categories']}")
+
+
+def find_available_medias(medias, client):
+    client_age = tools.calcule_age(int(client['BIRTH']))
+    if client['ABT'] == 'R':
         results = [item for item in medias if (client['COUNTRY'] in item['pays'])]
     else:
         results = medias
 
-    results = [media for media in results if (age >= media['classement'])]
+    results = [media for media in results if (client_age >= media['classement'])]
 
     return results
 
 
-def expression():
-    pass
+def expression(medias, client):
+    criteria = input("Entre tes critères de recherche : ")
+    results = [media for media in medias if (criteria in media['titre'] or criteria in media['description'])]
+
+    messages.titre_search(client['NAME'], len(medias))
+    show_liste(medias)
+
+    # return results
 
 
-def conditions(item):
-    pass
+def conditions(medias):
+    criteria = input("Entre tes critères ")
+    results = []
+    return results
 
 
-def genre():
-    pass
+def genre(medias):
+    criteria = input("Entre tes critères ")
+    results = []
+    return results
 
 
-def actor():
-    pass
+def actor(medias):
+    criteria = input("Entre tes critères ")
+    results = []
+    return results
 
 
-def recent():
-    pass
+def recent(medias):
+    criteria = input("Entre tes critères ")
+    results = []
+    return results
 
 
-def popular():
-    pass
+def popular(medias):
+    criteria = input("Entre tes critères ")
+    results = []
+    return results
 
 
-def evaluated():
-    pass
+def evaluated(medias):
+    criteria = input("Entre tes critères ")
+    results = []
+    return results
 
 
 def home():

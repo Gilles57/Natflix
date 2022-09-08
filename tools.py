@@ -26,7 +26,7 @@ def verify_password(password_digest, plain_password):
     return password_digest == hash_password(plain_password)
 
 
-def age(birth_year):
+def calcule_age(birth_year):
     return datetime.datetime.now().year - birth_year
 
 
