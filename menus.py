@@ -84,9 +84,10 @@ def options(available_medias):
         match choice:
             case "1":
                 media.select_one(available_medias)
-                print("choix 1")
+                input("\nAppuie sur 'Entrée' pour continuer ! ")
             case "2":
-                print("lecture d'un titre (à venir)")
+                media.conditions(available_medias)
+                input("\nAppuie sur 'Entrée' pour continuer ! ")
             case "3":
                 print("Retour au menu...")
             case _:

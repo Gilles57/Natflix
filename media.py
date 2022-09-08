@@ -55,18 +55,23 @@ def show_liste(medias):
             limite = "Tous publics"
         else:
             limite = f"CLASSIFICATION : >= {media['classement']} ans"
-        print(f" : {media['show_id']} : {media['titre']} ({media['pays']}) - {limite}")
+        print(f" : {media['show_id']:<6} : {media['note']:<3} : {media['popularite']:<7} : {media['date_ajout']:<20}: {media['titre']} ({media['pays']}) - {limite} ")
 
 
 def select_one(available_medias):
     ref = None
+    choice = None
     while ref is None:
         ref = input("\nTape une référence (sXXXX) pour accéder à la fiche détaillée : ")
         for m in available_medias:
             if ref == m.get('show_id'):
-                show_one(available_medias, ref)
-        ref = None
-        print("Référence inexistante !")
+                choice = ref
+                break
+        if choice:
+            show_one(available_medias, choice)
+        else:
+            ref = None
+            print("Référence inexistante !")
 
 
 def show_one(medias, choice_id):
@@ -110,50 +115,44 @@ def find_available_medias(medias, client):
     return results
 
 
-def expression(medias, client):
+def expression(medias):
     criteria = input("Entre tes critères de recherche : ")
     results = [media for media in medias if (criteria in media['titre'] or criteria in media['description'])]
 
-    messages.titre_search(client['NAME'], len(medias))
-    show_liste(medias)
-
-    # return results
-
-
-def conditions(medias):
-    criteria = input("Entre tes critères ")
-    results = []
-    return results
+    messages.titre_search(len(results))
+    show_liste(results)
 
 
 def genre(medias):
-    criteria = input("Entre tes critères ")
-    results = []
-    return results
+    criteria = input("Entre le genre de médias recherché : ")
+    results = [media for media in medias if (criteria in media['type'])]
+
+    messages.titre_search(len(results))
+    show_liste(results)
 
 
 def actor(medias):
-    criteria = input("Entre tes critères ")
-    results = []
-    return results
+    criteria = input("Entre l'acteur recherché : ")
+    results = [media for media in medias if (criteria in media['acteurs'])]
+
+    messages.titre_search(len(results))
+    show_liste(results)
 
 
 def recent(medias):
-    criteria = input("Entre tes critères ")
-    results = []
-    return results
+
+    messages.titre_search(len(medias))
+    show_liste(sorted(medias, key=lambda d: d['date_ajout'], reverse=True))
 
 
 def popular(medias):
-    criteria = input("Entre tes critères ")
-    results = []
-    return results
+    messages.titre_search(len(medias))
+    show_liste(sorted(medias, key=lambda d: float(d['popularite']), reverse=True))
 
 
 def evaluated(medias):
-    criteria = input("Entre tes critères ")
-    results = []
-    return results
+    messages.titre_search(len(medias))
+    show_liste(sorted(medias, key=lambda d: d['note'], reverse=True))
 
 
 def home():

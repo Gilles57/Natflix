@@ -19,22 +19,9 @@ def main():
 
         messages.titre_media(client['NAME'], len(available_medias)) #Salut Toto...
 
-        menus.library(available_medias)
+        menus.library(available_medias)     # Affiche la liste de résultat
+        menus.options(available_medias)     # Affiche le menu pour l'utilisation du résultat
 
-        menus.options(available_medias)
-
-        # input("\nAppuie une touche pour continuer ! ")
-        # print(selection)
-
-
-        # if selection == []:
-        #     print("Aucun média ne correspond à tes critères !")
-        #     selection = menus.library(available_medias)
-        # else:
-        #     print(f"{selection=}")
-        #     ref = media.select_one(available_medias)
-        #     media.show_one(available_medias, ref)
-        #     selection = []
 
 
 if __name__ == "__main__":

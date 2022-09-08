@@ -24,13 +24,13 @@ def titre_media(user_name, number_of_medias):
     print("")
 
 
-def titre_search(user_name, number_of_medias):
+def titre_search(number_of_medias):
     tools.clear_screen()
 
     LARGEUR_TITRE = 80
     print("")
     print("*" * LARGEUR_TITRE)
     print(
-        f"###{f'{user_name},  il y a {number_of_medias} résultats pour ta recherche.':^{LARGEUR_TITRE - 6}}###")
+        f"###{f'Il y a {number_of_medias} résultats pour ta recherche.':^{LARGEUR_TITRE - 6}}###")
     print("*" * LARGEUR_TITRE)
     print("")
