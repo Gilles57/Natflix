@@ -1,5 +1,4 @@
 import time
-import sys
 
 import messages
 import tools
@@ -55,9 +54,9 @@ def show_liste(medias):
         if media['classement'] == 0:
             limite = "Tous publics"
         else:
-            limite = f"CLASSIFICATION : >= {media['classement']} ans"
+            limite = f"(>= {media['classement']:>2} ans)"
         print(
-            f" : {media['show_id']:<6} : {media['note']:<3} : {media['popularite']:<7} : {media['date_ajout']:<20}: {media['titre']} ({media['pays']}) - {limite} ")
+            f" : {media['show_id']:<6} : {media['note']:<4} : {media['popularite']:<7} : {media['date_ajout']:<20}: {media['titre'][:20]:<22} : {media['pays'][:15]:<16} : {limite} ")
 
 
 def select_one(available_medias):
@@ -107,7 +106,7 @@ def show_one(medias, choice_id):
 
 def find_available_medias(medias, client):
     client_age = tools.calcule_age(int(client['BIRTH']))
-    if client['ABT'] == 'R':
+    if client['ABT'] == '2':
         results = [item for item in medias if (client['COUNTRY'] in item['pays'])]
     else:
         results = medias
@@ -141,11 +140,18 @@ def actor(medias):
     show_liste(results)
 
 
+def format_date(date):
+    year = date.split(',')[1].strip()
+    month_day = date.split(',')[0]
+    month = month_day.split(' ')[0]
+    day = date.split(' ')[1]
+    formated_date = f"{day}-{month}-{year}"
+    print(formated_date)
 
 
 def recent(medias):
     messages.titre_search(len(medias))
-    show_liste(sorted(medias, key=lambda d: time.strptime(d['date_ajout'], "%B %d, %Y"), reverse=True))
+    show_liste(sorted(medias, key=lambda d: time.strptime(d['date_ajout'].strip(), "%B %d, %Y"), reverse=True))
 
 
 def popular(medias):

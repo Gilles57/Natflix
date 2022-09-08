@@ -28,7 +28,6 @@ def welcome():
 
 def library(available_medias):
     choice = None
-    films = []
 
     while choice is None:
         print("0 - Afficher tous les films et séries autorisés")
@@ -50,33 +49,31 @@ def library(available_medias):
 
     match choice:
         case "0":
-            films = media.show_liste(available_medias)
+            media.show_liste(available_medias)
         case "1":
-            films = media.expression(available_medias)
+            media.expression(available_medias)
         case "2":
-            films = media.genre(available_medias)
+            media.genre(available_medias)
         case "3":
-            films = media.actor(available_medias)
+            media.actor(available_medias)
         case "4":
-            films = media.recent(available_medias)
+            media.recent(available_medias)
         case "5":
-            films = media.popular(available_medias)
+            media.popular(available_medias)
         case "6":
-            films = media.evaluated(available_medias)
+            media.evaluated(available_medias)
         case "7":
-            films = media.home()
+            media.home()
         case _:
             print("Ton choix n'est pas dans la liste des options. Réessaie...")
-
-    return films
 
 
 def options(available_medias):
     choice = 0
     while choice == 0:
-        print("\nQue veux tu faire ? ")
+        print("\nQue veux-tu faire ? ")
         print("1. Voir une fiche détaillée")
-        print("2. Lancer la lecture d'un titre")
+        print("2. Lancer la lecture d'un titre (à venir ?)")
         print("3. Retour au menu")
 
         choice = input("\nEntre ton choix : ")
@@ -86,13 +83,10 @@ def options(available_medias):
                 media.select_one(available_medias)
                 input("\nAppuie sur 'Entrée' pour continuer ! ")
             case "2":
-                media.conditions(available_medias)
+                print("Fonction qui lancera la lecture d'un titre")
                 input("\nAppuie sur 'Entrée' pour continuer ! ")
             case "3":
                 print("Retour au menu...")
             case _:
                 tools.clear_screen()
                 print("Ton choix n'est pas dans la liste des options. Réessaie...")
-
-
-
