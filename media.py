@@ -1,3 +1,4 @@
+import time
 import sys
 
 import messages
@@ -55,7 +56,8 @@ def show_liste(medias):
             limite = "Tous publics"
         else:
             limite = f"CLASSIFICATION : >= {media['classement']} ans"
-        print(f" : {media['show_id']:<6} : {media['note']:<3} : {media['popularite']:<7} : {media['date_ajout']:<20}: {media['titre']} ({media['pays']}) - {limite} ")
+        print(
+            f" : {media['show_id']:<6} : {media['note']:<3} : {media['popularite']:<7} : {media['date_ajout']:<20}: {media['titre']} ({media['pays']}) - {limite} ")
 
 
 def select_one(available_medias):
@@ -139,10 +141,11 @@ def actor(medias):
     show_liste(results)
 
 
-def recent(medias):
 
+
+def recent(medias):
     messages.titre_search(len(medias))
-    show_liste(sorted(medias, key=lambda d: d['date_ajout'], reverse=True))
+    show_liste(sorted(medias, key=lambda d: time.strptime(d['date_ajout'], "%B %d, %Y"), reverse=True))
 
 
 def popular(medias):
