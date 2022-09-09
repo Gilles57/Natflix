@@ -1,6 +1,7 @@
 import time
 
 import messages
+import menus
 import tools
 
 
@@ -56,7 +57,7 @@ def show_liste(medias):
         else:
             limite = f"(>= {media['classement']:>2} ans)"
         print(
-            f" : {media['show_id']:<6} : {media['note']:<4} : {media['popularite']:<7} : {media['date_ajout']:<20}: {media['titre'][:20]:<22} : {media['pays'][:15]:<16} : {limite} ")
+            f" : {media['show_id']:<6} : {media['note']:<4} : {media['popularite']:<7} : {media['annee_sortie']:<5}: {media['date_ajout']:<20}: {media['titre'][:20]:<22} : {media['pays'][:15]:<16}: {media['langue']:<3} : {limite} ")
 
 
 def select_one(available_medias):
@@ -132,6 +133,14 @@ def genre(medias):
     show_liste(results)
 
 
+def language(medias):
+    criteria = input("Entre la langue recherchée (en, fr, es, jp...) : ")
+    results = [media for media in medias if (criteria in media['langue'])]
+
+    messages.titre_search(len(results))
+    show_liste(results)
+
+
 def actor(medias):
     criteria = input("Entre l'acteur recherché : ")
     results = [media for media in medias if (criteria in media['acteurs'])]
@@ -140,13 +149,9 @@ def actor(medias):
     show_liste(results)
 
 
-def format_date(date):
-    year = date.split(',')[1].strip()
-    month_day = date.split(',')[0]
-    month = month_day.split(' ')[0]
-    day = date.split(' ')[1]
-    formated_date = f"{day}-{month}-{year}"
-    print(formated_date)
+def parution(medias):
+    messages.titre_search(len(medias))
+    show_liste(sorted(medias, key=lambda d: d['annee_sortie'], reverse=True))
 
 
 def recent(medias):
@@ -165,4 +170,5 @@ def evaluated(medias):
 
 
 def home():
-    return None
+    messages.titre_welcome()
+    client = menus.welcome()

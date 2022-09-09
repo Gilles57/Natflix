@@ -37,3 +37,12 @@ def load_datas(data_file, delim):
         for ligne in reader:
             datas.append(ligne)
     return datas
+
+
+def format_date(date):
+    year = date.split(',')[1].strip()
+    month_day = date.split(',')[0]
+    month = month_day.split(' ')[0]
+    day = date.split(' ')[1]
+    formated_date = f"{day}-{month}-{year}"
+    print(formated_date)

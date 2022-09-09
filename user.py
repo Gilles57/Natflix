@@ -1,5 +1,6 @@
 import sys
 
+import messages
 import tools
 import csv
 import datetime
@@ -102,15 +103,15 @@ def authentification():
     validation = False
 
     while nb_of_tries > 0 and not validation:
-        email = input("Entre ton email :")
-        email = email.lower().strip()
+        # email = input("Entre ton email :")
+        # email = email.lower().strip()
+        #
+        # password = input("Entre ton mot de passe :")
+        # password = password.strip()
 
-        password = input("Entre ton mot de passe :")
-        password = password.strip()
-
-        # email = "j.balle@gmail.com" # utilisé pendant les tests à la place des lignes 103 à 107
-        # password = "aaaaaa"         # utilisé pendant les tests à la place des lignes 103 à 107
-        #                             # TODO à rétablir avant déploiement
+        email = "j.balle@gmail.com" # utilisé pendant les tests à la place des lignes 103 à 107
+        password = "aaaaaa"         # utilisé pendant les tests à la place des lignes 103 à 107
+                                    # TODO à rétablir avant déploiement
 
         for client in comptes:
             if client['EMAIL'].lower() == email and tools.verify_password(client['PASSWORD'], password):
@@ -131,5 +132,5 @@ def authentification():
 
 
 def ending():
-    print("Merci d'avoir utilisé nos services !")
+    messages.output()
     sys.exit()

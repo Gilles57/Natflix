@@ -6,7 +6,7 @@ import media
 def welcome():
     while True:
         client = None
-        print("\nMenu d'accueil")
+        print("\nMenu d'accueil\n")
         print("1. S'inscrire")
         print("2. S'authentifier")
         print("3. Quitter")
@@ -34,14 +34,16 @@ def library(available_medias):
         print("1 - Rechercher des films ou séries avec une expression")
         print("2 - Rechercher des films ou séries selon le genre")
         print("3 - Rechercher des films ou séries selon les acteurs")
-        print("4 - Afficher la médiathèque par ordre des shows les plus récemment ajoutés")
-        print("5 - Afficher la médiathèque par ordre des shows les plus populaires")
-        print("6 - Afficher la médiathèque par ordre des shows les mieux évalués")
-        print("7 - Retour au menu principal")
+        print("4 - Rechercher des films ou séries selon la langue")
+        print("5 - Rechercher des films ou séries selon la date de sortie")
+        print("6 - Afficher la médiathèque par ordre des shows les plus récemment ajoutés")
+        print("7 - Afficher la médiathèque par ordre des shows les plus populaires")
+        print("8 - Afficher la médiathèque par ordre des shows les mieux évalués")
+        print("9 - Retour au menu principal")
 
         choice = input("\n Entre ton choix : ")
 
-        if choice not in ("0", "1", "2", "3", "4", "5", "6", "7"):
+        if choice not in ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9"):
             print(
                 "Ton choix n'est pas dans la liste des options. Réessaie..."
             )
@@ -57,12 +59,16 @@ def library(available_medias):
         case "3":
             media.actor(available_medias)
         case "4":
-            media.recent(available_medias)
+            media.language(available_medias)
         case "5":
-            media.popular(available_medias)
+            media.parution(available_medias)
         case "6":
-            media.evaluated(available_medias)
+            media.recent(available_medias)
         case "7":
+            media.popular(available_medias)
+        case "8":
+            media.evaluated(available_medias)
+        case "9":
             media.home()
         case _:
             print("Ton choix n'est pas dans la liste des options. Réessaie...")
